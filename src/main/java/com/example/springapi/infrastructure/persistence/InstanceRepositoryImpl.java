@@ -25,6 +25,9 @@ public class InstanceRepositoryImpl implements InstanceRepository {
             existing.setName(instance.getName());
             existing.setPaymentStatus(instance.getPaymentStatus());
             existing.setConnectionStatus(instance.getConnectionStatus());
+            existing.setAutoReadMessage(instance.getAutoReadMessage());
+            existing.setCallRejectAuto(instance.getCallRejectAuto());
+            existing.setReceivedCallbackUrl(instance.getReceivedCallbackUrl());
 
             InstanceEntity saved = springDataInstanceRepository.save(existing);
             return InstanceMapper.toDomain(saved);

@@ -8,8 +8,12 @@ public class InstanceMapper {
         return new Instance(
                 instanceEntity.getInstanceId(),
                 instanceEntity.getName(),
+                instanceEntity.getCreated(),
                 instanceEntity.getPaymentStatus(),
-                instanceEntity.getConnectionStatus()
+                instanceEntity.getConnectionStatus(),
+                instanceEntity.getAutoReadMessage(),
+                instanceEntity.getCallRejectAuto(),
+                instanceEntity.getReceivedCallbackUrl()
         );
     }
 
@@ -18,8 +22,12 @@ public class InstanceMapper {
                 null,
                 instance.getId(),
                 instance.getName(),
+                instance.getCreated(),
                 instance.getPaymentStatus(),
-                instance.getConnectionStatus()
+                instance.getConnectionStatus(),
+                instance.getAutoReadMessage(),
+                instance.getCallRejectAuto(),
+                instance.getReceivedCallbackUrl()
         );
     }
 }

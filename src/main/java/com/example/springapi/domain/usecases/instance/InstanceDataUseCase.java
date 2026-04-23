@@ -7,6 +7,9 @@ import com.example.springapi.services.ZapiHttpService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
 
@@ -43,7 +46,18 @@ public class InstanceDataUseCase {
                     .receivedCallbackUrl(response.get("receivedCallbackUrl") != null ? response.get("receivedCallbackUrl").toString() : null)
                     .build();
 
-            Instance instance = new Instance(output.getId(), output.getName(), output.getPaymentStatus(), output.getConnected().toString());
+            OffsetDateTime offset = OffsetDateTime.parse(output.getCreated());
+            Date date = Date.from(offset.toInstant());
+
+            Instance instance = new Instance(
+                    output.getId(),
+                    output.getName(),
+                    date,output.getPaymentStatus(),
+                    output.getConnected().toString(),
+                    output.getAutoReadMessage(),
+                    output.getCallRejectAuto(),
+                    output.getReceivedCallbackUrl());
+
             Optional<Instance> instanceDb = instanceRepository.findByInstanceId(instance.getId());
 
             if (instanceDb.isPresent()) {
