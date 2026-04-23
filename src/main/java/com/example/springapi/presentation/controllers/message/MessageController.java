@@ -1,12 +1,15 @@
 package com.example.springapi.presentation.controllers.message;
 
 import com.example.springapi.core.boundary.input.SendAudioUseCaseInput;
+import com.example.springapi.core.boundary.input.SendCallUseCaseInput;
 import com.example.springapi.core.boundary.input.SendImageUseCaseInput;
 import com.example.springapi.core.boundary.input.SendTextUseCaseInput;
 import com.example.springapi.core.boundary.output.message.SendAudioUseCaseOutput;
+import com.example.springapi.core.boundary.output.message.SendCallUseCaseOutput;
 import com.example.springapi.core.boundary.output.message.SendImageUseCaseOutput;
 import com.example.springapi.core.boundary.output.message.SendTextUseCaseOutput;
 import com.example.springapi.domain.usecases.messages.SendAudioUseCase;
+import com.example.springapi.domain.usecases.messages.SendCallUseCase;
 import com.example.springapi.domain.usecases.messages.SendImageUseCase;
 import com.example.springapi.domain.usecases.messages.SendTextUseCase;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +30,7 @@ public class MessageController {
     private final SendTextUseCase sendTextUseCase;
     private final SendImageUseCase sendImageUseCase;
     private final SendAudioUseCase sendAudioUseCase;
+    private final SendCallUseCase sendCallUseCase;
     private final ObjectMapper objectMapper;
 
     @PostMapping("/send-text")
@@ -53,6 +57,15 @@ public class MessageController {
         Map<String, Object> params = objectMapper.convertValue(request, Map.class);
 
         SendAudioUseCaseOutput response = sendAudioUseCase.execute(params);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/send-call")
+    public ResponseEntity<SendCallUseCaseOutput> sendCall(@RequestBody SendCallUseCaseInput request){
+        Map<String, Object> params = objectMapper.convertValue(request, Map.class);
+
+        SendCallUseCaseOutput response = sendCallUseCase.execute(params);
 
         return ResponseEntity.ok(response);
     }
