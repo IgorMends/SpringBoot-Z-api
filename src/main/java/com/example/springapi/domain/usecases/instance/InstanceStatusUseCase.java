@@ -13,10 +13,10 @@ public class InstanceStatusUseCase {
 
     private final ZapiHttpService zapiHttpService;
 
-    public InstanceStatusUseCaseOutput execute(){
+    public InstanceStatusUseCaseOutput execute(String instanceId, String instanceToken){
         try {
 
-            Map<String, Object> response = zapiHttpService.get("/status");
+            Map<String, Object> response = zapiHttpService.get("status", instanceId, instanceToken);
 
             return InstanceStatusUseCaseOutput.builder()
                     .connected(response.get("connected") != null ? (Boolean)response.get("connected") : null)

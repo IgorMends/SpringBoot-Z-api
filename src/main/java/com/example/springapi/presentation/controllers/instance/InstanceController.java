@@ -24,44 +24,44 @@ public class InstanceController {
     private final RenameInstanceUseCase renameInstanceUseCase;
     private final ObjectMapper objectMapper;
 
-    @GetMapping("/qr-code")
-    public ResponseEntity<GetQrCodeUseCaseOutput> getQrCode(){
-        GetQrCodeUseCaseOutput response = getQrCodeUseCase.execute();
+    @GetMapping("{instanceId}/token/{instanceToken}/qr-code")
+    public ResponseEntity<GetQrCodeUseCaseOutput> getQrCode(@PathVariable String instanceId, @PathVariable String instanceToken){
+        GetQrCodeUseCaseOutput response = getQrCodeUseCase.execute(instanceId, instanceToken);
 
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/disconnect")
-    public ResponseEntity<DisconnectUseCaseOutput> disconnectInstance(){
-        DisconnectUseCaseOutput response = disconectUseCase.execute();
+    @GetMapping("{instanceId}/token/{instanceToken}/disconnect")
+    public ResponseEntity<DisconnectUseCaseOutput> disconnectInstance(@PathVariable String instanceId, @PathVariable String instanceToken){
+        DisconnectUseCaseOutput response = disconectUseCase.execute(instanceId, instanceToken);
 
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/restart")
-    public ResponseEntity<RestartUseCaseOutput> restartInstance(){
-        RestartUseCaseOutput response = restartUseCase.execute();
+    @GetMapping("{instanceId}/token/{instanceToken}/restart")
+    public ResponseEntity<RestartUseCaseOutput> restartInstance(@PathVariable String instanceId, @PathVariable String instanceToken){
+        RestartUseCaseOutput response = restartUseCase.execute(instanceId, instanceToken);
 
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/status")
-    public ResponseEntity<InstanceStatusUseCaseOutput> instanceStatus(){
-        InstanceStatusUseCaseOutput response = instanceStatusUseCase.execute();
+    @GetMapping("{instanceId}/token/{instanceToken}/status")
+    public ResponseEntity<InstanceStatusUseCaseOutput> instanceStatus(@PathVariable String instanceId, @PathVariable String instanceToken){
+        InstanceStatusUseCaseOutput response = instanceStatusUseCase.execute(instanceId, instanceToken);
 
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/me")
-    public ResponseEntity<InstanceDataUseCaseOutput> instanceData(){
-        InstanceDataUseCaseOutput response = instanceDataUseCase.execute();
+    @GetMapping("/{instanceId}/token/{instanceToken}/me")
+    public ResponseEntity<InstanceDataUseCaseOutput> instanceData(@PathVariable String instanceId, @PathVariable String instanceToken){
+        InstanceDataUseCaseOutput response = instanceDataUseCase.execute(instanceId, instanceToken);
 
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/device")
-    public ResponseEntity<DeviceDataUseCaseOutput> deviceData(){
-        DeviceDataUseCaseOutput response = deviceDataUseCase.execute();
+    @GetMapping("{instanceId}/token/{instanceToken}/device")
+    public ResponseEntity<DeviceDataUseCaseOutput> deviceData(@PathVariable String instanceId, @PathVariable String instanceToken){
+        DeviceDataUseCaseOutput response = deviceDataUseCase.execute(instanceId, instanceToken);
 
         return ResponseEntity.ok(response);
     }

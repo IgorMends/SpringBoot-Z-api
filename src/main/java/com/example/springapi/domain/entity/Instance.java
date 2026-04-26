@@ -15,7 +15,7 @@ public class Instance {
     private String name;
     private Date created;
     private String paymentStatus;
-    private String connectionStatus;
+    private Boolean connectionStatus;
     private Boolean autoReadMessage;
     private Boolean callRejectAuto;
     private String receivedCallbackUrl;

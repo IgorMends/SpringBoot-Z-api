@@ -15,9 +15,9 @@ public class ZapiHttpService {
     private final ZapiConfig zapiConfig;
     private final WebClient.Builder webClientBuilder;
 
-    public Map<String, Object> get(String endpoint){
+    public Map<String, Object> get(String endpoint, String instanceId, String instanceToken){
         try{
-            String url = zapiConfig.getBaseUrl() + endpoint;
+            String url = String.format("https://api.z-api.io/instances/%s/token/%s/%s", instanceId, instanceToken, endpoint);
 
             return webClientBuilder.build()
                     .get()

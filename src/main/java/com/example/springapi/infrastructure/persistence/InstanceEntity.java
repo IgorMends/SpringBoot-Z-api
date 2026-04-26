@@ -27,7 +27,7 @@ public class InstanceEntity {
     @Column("payment_status")
     private String paymentStatus;
     @Column("connection_status")
-    private String connectionStatus;
+    private Boolean connectionStatus;
     @Column("auto_read_message")
     private Boolean autoReadMessage;
     @Column("call_reject_auto")

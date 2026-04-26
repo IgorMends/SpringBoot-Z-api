@@ -1,6 +1,7 @@
 package com.example.springapi.domain.usecases.instance;
 
 import com.example.springapi.core.boundary.output.instance.InstanceDataUseCaseOutput;
+import com.example.springapi.core.boundary.output.instance.InstanceStatusUseCaseOutput;
 import com.example.springapi.domain.entity.Instance;
 import com.example.springapi.infrastructure.persistence.InstanceRepositoryImpl;
 import com.example.springapi.services.ZapiHttpService;
@@ -20,10 +21,28 @@ public class InstanceDataUseCase {
     private final ZapiHttpService zapiHttpService;
     private final InstanceRepositoryImpl instanceRepository;
 
-    public InstanceDataUseCaseOutput execute(){
+    public InstanceDataUseCaseOutput execute(String instanceId, String instanceToken){
         try {
 
-            Map<String, Object> response = zapiHttpService.get("/me");
+            Optional<Instance> instanceFromDb = instanceRepository.findByInstanceId(instanceId);
+
+            if(instanceFromDb.isPresent()){
+                Instance instance = instanceFromDb.get();
+
+                InstanceDataUseCaseOutput response = InstanceDataUseCaseOutput.builder()
+                        .name(instance.getName())
+                        .id(instance.getId())
+                        .connected(instance.getConnectionStatus())
+                        .paymentStatus(instance.getPaymentStatus())
+                        .autoReadMessage(instance.getAutoReadMessage())
+                        .callRejectAuto(instance.getCallRejectAuto())
+                        .receivedCallbackUrl(instance.getReceivedCallbackUrl())
+                        .build();
+
+                return response;
+            }
+
+            Map<String, Object> response = zapiHttpService.get("me", instanceId, instanceToken);
 
             InstanceDataUseCaseOutput output = InstanceDataUseCaseOutput.builder()
                     .id(response.get("id") != null ? response.get("id").toString() : null)
@@ -53,7 +72,7 @@ public class InstanceDataUseCase {
                     output.getId(),
                     output.getName(),
                     date,output.getPaymentStatus(),
-                    output.getConnected().toString(),
+                    output.getConnected(),
                     output.getAutoReadMessage(),
                     output.getCallRejectAuto(),
                     output.getReceivedCallbackUrl());

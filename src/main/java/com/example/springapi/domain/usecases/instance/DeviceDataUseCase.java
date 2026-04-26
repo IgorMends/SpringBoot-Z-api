@@ -16,10 +16,10 @@ public class DeviceDataUseCase {
 
     private final ZapiHttpService zapiHttpService;
 
-    public DeviceDataUseCaseOutput execute(){
+    public DeviceDataUseCaseOutput execute(String instanceId, String instanceToken){
         try{
 
-            Map<String, Object> response = zapiHttpService.get("/device");
+            Map<String, Object> response = zapiHttpService.get("device", instanceId, instanceToken);
 
             Map<String, Object> deviceMap = (Map<String, Object>) response.get("device");
             DeviceEntity deviceEntity= new DeviceEntity();
