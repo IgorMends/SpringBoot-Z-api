@@ -1,5 +1,6 @@
 package com.example.springapi.domain.usecases.messages;
 
+import com.example.springapi.core.boundary.input.SendCallUseCaseInput;
 import com.example.springapi.core.boundary.output.message.SendCallUseCaseOutput;
 import com.example.springapi.services.ZapiHttpService;
 import lombok.RequiredArgsConstructor;
@@ -15,16 +16,10 @@ public class SendCallUseCase {
 
     private final ZapiHttpService zapiHttpService;
 
-    public SendCallUseCaseOutput execute(Map<String, Object> params){
+    public SendCallUseCaseOutput execute(SendCallUseCaseInput body, String instanceId, String instanceToken, String clientToken){
         try{
-            Map<String, Object> body = new HashMap<>();
-            body.put("phone",params.get("phone"));
 
-            if(StringUtils.hasText(params.get("callAudioUrl").toString())){
-                body.put("callAudioUrl", params.get("callAudioUrl"));
-            }
-
-            Map<String, Object> response = zapiHttpService.post("/send-call", body);
+            Map<String, Object> response = zapiHttpService.post("send-call", body, instanceId, instanceToken, clientToken);
 
             return SendCallUseCaseOutput.builder()
                     .messageId(response.get("messageId") != null ? response.get("messageId").toString() : null)

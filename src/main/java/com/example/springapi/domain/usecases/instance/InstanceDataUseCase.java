@@ -21,7 +21,7 @@ public class InstanceDataUseCase {
     private final ZapiHttpService zapiHttpService;
     private final InstanceRepositoryImpl instanceRepository;
 
-    public InstanceDataUseCaseOutput execute(String instanceId, String instanceToken){
+    public InstanceDataUseCaseOutput execute(String instanceId, String instanceToken, String clientToken){
         try {
 
             Optional<Instance> instanceFromDb = instanceRepository.findByInstanceId(instanceId);
@@ -42,7 +42,7 @@ public class InstanceDataUseCase {
                 return response;
             }
 
-            Map<String, Object> response = zapiHttpService.get("me", instanceId, instanceToken);
+            Map<String, Object> response = zapiHttpService.get("me", instanceId, instanceToken, clientToken);
 
             InstanceDataUseCaseOutput output = InstanceDataUseCaseOutput.builder()
                     .id(response.get("id") != null ? response.get("id").toString() : null)

@@ -14,9 +14,9 @@ public class GetQrCodeUseCase {
 
     private final ZapiHttpService zapiHttpService;
 
-    public GetQrCodeUseCaseOutput execute(String instanceId, String instanceToken){
+    public GetQrCodeUseCaseOutput execute(String instanceId, String instanceToken, String clientToken){
         try{
-            Map<String, Object> response= zapiHttpService.get("qr-code/image",instanceId, instanceToken);
+            Map<String, Object> response= zapiHttpService.get("qr-code/image",instanceId, instanceToken, clientToken);
 
             return GetQrCodeUseCaseOutput.builder()
                     .value(response.get("value") != null ? response.get("value").toString() : null)

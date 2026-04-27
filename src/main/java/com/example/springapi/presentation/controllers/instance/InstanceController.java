@@ -25,52 +25,51 @@ public class InstanceController {
     private final ObjectMapper objectMapper;
 
     @GetMapping("{instanceId}/token/{instanceToken}/qr-code")
-    public ResponseEntity<GetQrCodeUseCaseOutput> getQrCode(@PathVariable String instanceId, @PathVariable String instanceToken){
-        GetQrCodeUseCaseOutput response = getQrCodeUseCase.execute(instanceId, instanceToken);
+    public ResponseEntity<GetQrCodeUseCaseOutput> getQrCode(@PathVariable String instanceId, @PathVariable String instanceToken, @RequestHeader("Client-token") String ClientToken){
+        GetQrCodeUseCaseOutput response = getQrCodeUseCase.execute(instanceId, instanceToken, ClientToken);
 
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("{instanceId}/token/{instanceToken}/disconnect")
-    public ResponseEntity<DisconnectUseCaseOutput> disconnectInstance(@PathVariable String instanceId, @PathVariable String instanceToken){
-        DisconnectUseCaseOutput response = disconectUseCase.execute(instanceId, instanceToken);
+    public ResponseEntity<DisconnectUseCaseOutput> disconnectInstance(@PathVariable String instanceId, @PathVariable String instanceToken, @RequestHeader("Client-token") String ClientToken){
+        DisconnectUseCaseOutput response = disconectUseCase.execute(instanceId, instanceToken, ClientToken);
 
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("{instanceId}/token/{instanceToken}/restart")
-    public ResponseEntity<RestartUseCaseOutput> restartInstance(@PathVariable String instanceId, @PathVariable String instanceToken){
-        RestartUseCaseOutput response = restartUseCase.execute(instanceId, instanceToken);
+    public ResponseEntity<RestartUseCaseOutput> restartInstance(@PathVariable String instanceId, @PathVariable String instanceToken, @RequestHeader("Client-token") String ClientToken){
+        RestartUseCaseOutput response = restartUseCase.execute(instanceId, instanceToken, ClientToken);
 
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("{instanceId}/token/{instanceToken}/status")
-    public ResponseEntity<InstanceStatusUseCaseOutput> instanceStatus(@PathVariable String instanceId, @PathVariable String instanceToken){
-        InstanceStatusUseCaseOutput response = instanceStatusUseCase.execute(instanceId, instanceToken);
+    public ResponseEntity<InstanceStatusUseCaseOutput> instanceStatus(@PathVariable String instanceId, @PathVariable String instanceToken, @RequestHeader("Client-token") String ClientToken){
+        InstanceStatusUseCaseOutput response = instanceStatusUseCase.execute(instanceId, instanceToken, ClientToken);
 
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{instanceId}/token/{instanceToken}/me")
-    public ResponseEntity<InstanceDataUseCaseOutput> instanceData(@PathVariable String instanceId, @PathVariable String instanceToken){
-        InstanceDataUseCaseOutput response = instanceDataUseCase.execute(instanceId, instanceToken);
+    public ResponseEntity<InstanceDataUseCaseOutput> instanceData(@PathVariable String instanceId, @PathVariable String instanceToken, @RequestHeader("Client-token") String ClientToken){
+        InstanceDataUseCaseOutput response = instanceDataUseCase.execute(instanceId, instanceToken, ClientToken);
 
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("{instanceId}/token/{instanceToken}/device")
-    public ResponseEntity<DeviceDataUseCaseOutput> deviceData(@PathVariable String instanceId, @PathVariable String instanceToken){
-        DeviceDataUseCaseOutput response = deviceDataUseCase.execute(instanceId, instanceToken);
+    public ResponseEntity<DeviceDataUseCaseOutput> deviceData(@PathVariable String instanceId, @PathVariable String instanceToken, @RequestHeader("Client-token") String ClientToken){
+        DeviceDataUseCaseOutput response = deviceDataUseCase.execute(instanceId, instanceToken, ClientToken);
 
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("update-name")
-    public ResponseEntity<RenameInstanceUseCaseOutput> renameInstance(@RequestBody RenameInstanceUseCaseInput input){
-        Map<String, Object> body = objectMapper.convertValue(input, Map.class);
+    @PutMapping("{instanceId}/token/{instanceToken}/update-name")
+    public ResponseEntity<RenameInstanceUseCaseOutput> renameInstance(@RequestBody RenameInstanceUseCaseInput body, @PathVariable String instanceId, @PathVariable String instanceToken, @RequestHeader("Client-token") String ClientToken){
 
-        RenameInstanceUseCaseOutput response = renameInstanceUseCase.execute(body);
+        RenameInstanceUseCaseOutput response = renameInstanceUseCase.execute(body, instanceId, instanceToken, ClientToken);
 
         return ResponseEntity.ok(response);
     }

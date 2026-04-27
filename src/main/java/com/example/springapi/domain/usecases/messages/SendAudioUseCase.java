@@ -1,5 +1,6 @@
 package com.example.springapi.domain.usecases.messages;
 
+import com.example.springapi.core.boundary.input.SendAudioUseCaseInput;
 import com.example.springapi.core.boundary.output.message.SendAudioUseCaseOutput;
 import com.example.springapi.services.ZapiHttpService;
 import lombok.RequiredArgsConstructor;
@@ -15,30 +16,10 @@ public class SendAudioUseCase {
 
     private final ZapiHttpService zapiHttpService;
 
-    public SendAudioUseCaseOutput execute (Map<String, Object> params){
+    public SendAudioUseCaseOutput execute (SendAudioUseCaseInput body, String instanceId, String instanceToken, String clientToken){
         try{
-            Map<String, Object> body = new HashMap<>();
 
-            body.put("phone", params.get("phone"));
-            body.put("audio", params.get("audio"));
-
-            if(StringUtils.hasText(params.get("delayMessage").toString())){
-                body.put("delayMessage", params.get("delayMessage"));
-            }
-
-            if(StringUtils.hasText(params.get("delayTyping").toString())){
-                body.put("delayTyping", params.get("delayTyping"));
-            }
-
-            if(StringUtils.hasText(params.get("viewOnce").toString())){
-                body.put("viewOnce", params.get("viewOnce"));
-            }
-
-            if(StringUtils.hasText(params.get("waveform").toString())){
-                body.put("waveform", params.get("waveform"));
-            }
-
-            Map<String,Object> response = zapiHttpService.post("/send-audio", body);
+            Map<String,Object> response = zapiHttpService.post("send-audio", body, instanceId, instanceToken, clientToken);
 
             return SendAudioUseCaseOutput.builder()
                     .zaapId(response.get("zaapId") != null ? response.get("zaapId").toString() : null)

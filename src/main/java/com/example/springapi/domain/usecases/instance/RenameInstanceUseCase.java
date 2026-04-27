@@ -15,13 +15,10 @@ public class RenameInstanceUseCase {
 
     private final ZapiHttpService zapiHttpService;
 
-    public RenameInstanceUseCaseOutput execute(Map<String, Object> params){
+    public RenameInstanceUseCaseOutput execute(RenameInstanceUseCaseInput body, String instanceId, String instanceToken, String clientToken){
         try{
 
-            Map<String, Object> body = new HashMap<>();
-            body.put("value", params.get("value"));
-
-            Map<String, Object> response = zapiHttpService.put("/update-name", body);
+            Map<String, Object> response = zapiHttpService.put("update-name", body, instanceId, instanceToken, clientToken);
 
             return RenameInstanceUseCaseOutput.builder()
                     .value(response.get("value") != null ? response.get("value").toString() : null)

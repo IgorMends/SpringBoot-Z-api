@@ -14,10 +14,7 @@ import com.example.springapi.domain.usecases.messages.SendImageUseCase;
 import com.example.springapi.domain.usecases.messages.SendTextUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tools.jackson.databind.ObjectMapper;
 
 import java.util.Map;
@@ -33,39 +30,34 @@ public class MessageController {
     private final SendCallUseCase sendCallUseCase;
     private final ObjectMapper objectMapper;
 
-    @PostMapping("/send-text")
-    public ResponseEntity<SendTextUseCaseOutput> sendText(@RequestBody SendTextUseCaseInput request){
+    @PostMapping("{instanceId}/token/{instanceToken}/send-text")
+    public ResponseEntity<SendTextUseCaseOutput> sendText(@RequestBody SendTextUseCaseInput body, @PathVariable String instanceId, @PathVariable String instanceToken, @RequestHeader("Client-token") String ClientToken){
 
-        Map<String, Object> params = objectMapper.convertValue(request, Map.class);
-
-        SendTextUseCaseOutput response = sendTextUseCase.execute(params);
+        SendTextUseCaseOutput response = sendTextUseCase.execute(body, instanceId, instanceToken, ClientToken);
 
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/send-image")
-    public ResponseEntity<SendImageUseCaseOutput> sendImage(@RequestBody SendImageUseCaseInput request){
-        Map<String, Object> params = objectMapper.convertValue(request, Map.class);
+    @PostMapping("{instanceId}/token/{instanceToken}/send-image")
+    public ResponseEntity<SendImageUseCaseOutput> sendImage(@RequestBody SendImageUseCaseInput body, @PathVariable String instanceId, @PathVariable String instanceToken, @RequestHeader("Client-token") String ClientToken){
 
-        SendImageUseCaseOutput response = sendImageUseCase.execute(params);
-
-        return ResponseEntity.ok(response);
-    }
-
-    @PostMapping("/send-audio")
-    public ResponseEntity<SendAudioUseCaseOutput> sendAudio(@RequestBody SendAudioUseCaseInput request){
-        Map<String, Object> params = objectMapper.convertValue(request, Map.class);
-
-        SendAudioUseCaseOutput response = sendAudioUseCase.execute(params);
+        SendImageUseCaseOutput response = sendImageUseCase.execute(body, instanceId, instanceToken, ClientToken);
 
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/send-call")
-    public ResponseEntity<SendCallUseCaseOutput> sendCall(@RequestBody SendCallUseCaseInput request){
-        Map<String, Object> params = objectMapper.convertValue(request, Map.class);
+    @PostMapping("{instanceId}/token/{instanceToken}/send-audio")
+    public ResponseEntity<SendAudioUseCaseOutput> sendAudio(@RequestBody SendAudioUseCaseInput body, @PathVariable String instanceId, @PathVariable String instanceToken, @RequestHeader("Client-token") String ClientToken){
 
-        SendCallUseCaseOutput response = sendCallUseCase.execute(params);
+        SendAudioUseCaseOutput response = sendAudioUseCase.execute(body, instanceId, instanceToken, ClientToken);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("{instanceId}/token/{instanceToken}/send-call")
+    public ResponseEntity<SendCallUseCaseOutput> sendCall(@RequestBody SendCallUseCaseInput body, @PathVariable String instanceId, @PathVariable String instanceToken, @RequestHeader("Client-token") String ClientToken){
+
+        SendCallUseCaseOutput response = sendCallUseCase.execute(body, instanceId, instanceToken, ClientToken);
 
         return ResponseEntity.ok(response);
     }

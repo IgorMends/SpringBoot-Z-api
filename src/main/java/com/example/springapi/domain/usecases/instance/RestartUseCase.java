@@ -13,9 +13,9 @@ public class RestartUseCase {
 
     private final ZapiHttpService zapiHttpService;
 
-    public RestartUseCaseOutput execute(String instanceId, String instanceToken){
+    public RestartUseCaseOutput execute(String instanceId, String instanceToken, String clientToken){
         try {
-            Map<String, Object> response = zapiHttpService.get("restart", instanceId, instanceToken);
+            Map<String, Object> response = zapiHttpService.get("restart", instanceId, instanceToken, clientToken);
 
             return RestartUseCaseOutput.builder()
                     .value(response.get("value") != null ? (Boolean)response.get("value") : null)

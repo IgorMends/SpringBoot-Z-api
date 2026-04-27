@@ -13,9 +13,9 @@ public class DisconnectUseCase {
 
     private final ZapiHttpService zapiHttpService;
 
-    public DisconnectUseCaseOutput execute(String instanceId, String instanceToken){
+    public DisconnectUseCaseOutput execute(String instanceId, String instanceToken, String clientToken){
         try{
-            Map<String, Object> response = zapiHttpService.get("disconnect", instanceId, instanceToken);
+            Map<String, Object> response = zapiHttpService.get("disconnect", instanceId, instanceToken, clientToken);
 
             return DisconnectUseCaseOutput.builder().value(response.get("value") != null ? response.get("value").toString() : null).build();
         }catch (Exception e){
