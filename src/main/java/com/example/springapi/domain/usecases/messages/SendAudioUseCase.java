@@ -2,29 +2,52 @@ package com.example.springapi.domain.usecases.messages;
 
 import com.example.springapi.core.boundary.input.SendAudioUseCaseInput;
 import com.example.springapi.core.boundary.output.message.SendAudioUseCaseOutput;
+import com.example.springapi.domain.entity.Message;
+import com.example.springapi.domain.port.MessageRepository;
 import com.example.springapi.services.ZapiHttpService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
-@RequiredArgsConstructor
 public class SendAudioUseCase {
 
     private final ZapiHttpService zapiHttpService;
+    private final MessageRepository messageRepository;
+
+    public SendAudioUseCase(ZapiHttpService zapiHttpService, MessageRepository messageRepository) {
+        this.zapiHttpService = zapiHttpService;
+        this.messageRepository = messageRepository;
+    }
 
     public SendAudioUseCaseOutput execute (SendAudioUseCaseInput body, String instanceId, String instanceToken, String clientToken){
         try{
 
             Map<String,Object> response = zapiHttpService.post("send-audio", body, instanceId, instanceToken, clientToken);
 
+            String zaapId = response.get("zaapId") != null ? response.get("zaapId").toString() : null;
+            String messageId = response.get("messageId") != null ? response.get("messageId").toString() : null;
+            String id = response.get("id") != null ? response.get("id").toString() : null;
+
+            Message message = Message.builder()
+                    .type("audio")
+                    .phone(body.getPhone())
+                    .content(body.getAudio())
+                    .zaapId(zaapId)
+                    .messageId(messageId)
+                    .status("sent")
+                    .sentAt(new Date())
+                    .metadata(Map.of("instanceId", instanceId, "delayMessage", body.getDelayMessage(), "delayTyping", body.getDelayTyping(), "viewOnce", body.getViewOnce(), "waveform", body.getWaveform()))
+                    .build();
+
+            messageRepository.save(message);
+
             return SendAudioUseCaseOutput.builder()
-                    .zaapId(response.get("zaapId") != null ? response.get("zaapId").toString() : null)
-                    .messageId(response.get("messageId") != null ? response.get("messageId").toString() : null)
-                    .id(response.get("id") != null ? response.get("id").toString() : null)
+                    .zaapId(zaapId)
+                    .messageId(messageId)
+                    .id(id)
                     .build();
 
         } catch (Exception e) {

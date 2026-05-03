@@ -10,5 +10,8 @@ spring:
       mode: always
       schema-locations: classpath:schema.sql
 
+  mongodb:
+    uri: mongodb://localhost:27027/chat_api_messages
+
 server:
   port: 8080
