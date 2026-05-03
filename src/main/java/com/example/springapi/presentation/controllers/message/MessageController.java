@@ -61,4 +61,13 @@ public class MessageController {
 
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("{instanceId}/token/{instanceToken}/receivedCallback")
+    public ResponseEntity<Void> receivedCallback(@RequestBody Map<String, Object> body){
+
+        //Usecase para identificar o evento
+
+        return ResponseEntity.ok().build();
+    }
 }
+

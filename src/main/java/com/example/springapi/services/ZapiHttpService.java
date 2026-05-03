@@ -1,6 +1,5 @@
 package com.example.springapi.services;
 
-import com.example.springapi.config.ZapiConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ZapiHttpService {
 
-    private final ZapiConfig zapiConfig;
     private final WebClient.Builder webClientBuilder;
 
     public Map<String, Object> get(String endpoint, String instanceId, String instanceToken, String clientToken){

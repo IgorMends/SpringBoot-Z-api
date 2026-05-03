@@ -6,10 +6,12 @@ import com.example.springapi.domain.entity.Message;
 import com.example.springapi.domain.port.MessageRepository;
 import com.example.springapi.services.ZapiHttpService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class SendTextUseCase {
@@ -39,7 +41,7 @@ public class SendTextUseCase {
                     .messageId(messageId)
                     .status("sent")
                     .sentAt(new Date())
-                    .metadata(Map.of("instanceId", instanceId, "delayMessage", body.getDelayMessage(), "delayTyping", body.getDelayTyping(), "editMessage", body.getEditMessage()))
+                    .metadata(Map.of("instanceId", instanceId, "delayMessage", Objects.nonNull(body.getDelayMessage()) ? body.getDelayMessage() : -1, "delayTyping", Objects.nonNull(body.getDelayTyping()) ? body.getDelayTyping() : -1, "editMessage", StringUtils.hasText(body.getEditMessage()) ? body.getEditMessage() : ""))
                     .build();
 
             messageRepository.save(message);
