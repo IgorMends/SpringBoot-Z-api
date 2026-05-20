@@ -1,4 +1,4 @@
-package com.example.springapi.domain.usecases.instance;
+package com.example.springapi.domain.usecases.instances;
 
 import com.example.springapi.core.boundary.input.RenameInstanceUseCaseInput;
 import com.example.springapi.core.boundary.output.instance.RenameInstanceUseCaseOutput;
@@ -6,7 +6,6 @@ import com.example.springapi.services.ZapiHttpService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Service

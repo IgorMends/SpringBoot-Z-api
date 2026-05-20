@@ -1,8 +1,7 @@
-package com.example.springapi.domain.usecases.instance;
+package com.example.springapi.domain.usecases.instances;
 
 import com.example.springapi.core.boundary.output.instance.DeviceDataUseCaseOutput;
 import com.example.springapi.domain.entity.DeviceEntity;
-import com.example.springapi.domain.entity.Instance;
 import com.example.springapi.services.ZapiHttpService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

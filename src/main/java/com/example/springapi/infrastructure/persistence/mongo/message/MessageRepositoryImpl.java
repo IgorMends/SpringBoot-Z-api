@@ -1,4 +1,4 @@
-package com.example.springapi.infrastructure.persistence.mongo;
+package com.example.springapi.infrastructure.persistence.mongo.message;
 
 import com.example.springapi.application.mapper.MessageMapper;
 import com.example.springapi.domain.entity.Message;

@@ -1,7 +1,7 @@
 package com.example.springapi.application.mapper;
 
 import com.example.springapi.domain.entity.Message;
-import com.example.springapi.infrastructure.persistence.mongo.MessageDocument;
+import com.example.springapi.infrastructure.persistence.mongo.message.MessageDocument;
 
 public class MessageMapper {
 

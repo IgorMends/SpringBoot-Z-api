@@ -2,13 +2,11 @@ package com.example.springapi.presentation.controllers.instance;
 
 import com.example.springapi.core.boundary.input.RenameInstanceUseCaseInput;
 import com.example.springapi.core.boundary.output.instance.*;
-import com.example.springapi.domain.usecases.instance.*;
+import com.example.springapi.domain.usecases.instances.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tools.jackson.databind.ObjectMapper;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/instance")

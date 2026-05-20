@@ -1,4 +1,4 @@
-package com.example.springapi.domain.usecases.instance;
+package com.example.springapi.domain.usecases.instances;
 
 import com.example.springapi.core.boundary.output.instance.InstanceStatusUseCaseOutput;
 import com.example.springapi.services.ZapiHttpService;

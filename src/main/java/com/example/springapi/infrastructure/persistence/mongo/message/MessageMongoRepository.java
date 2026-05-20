@@ -1,4 +1,4 @@
-package com.example.springapi.infrastructure.persistence.mongo;
+package com.example.springapi.infrastructure.persistence.mongo.message;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 

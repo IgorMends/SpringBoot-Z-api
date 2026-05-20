@@ -1,4 +1,4 @@
-package com.example.springapi.infrastructure.persistence.mongo;
+package com.example.springapi.infrastructure.persistence.mongo.message;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

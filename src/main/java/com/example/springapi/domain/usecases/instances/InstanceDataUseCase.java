@@ -1,14 +1,12 @@
-package com.example.springapi.domain.usecases.instance;
+package com.example.springapi.domain.usecases.instances;
 
 import com.example.springapi.core.boundary.output.instance.InstanceDataUseCaseOutput;
-import com.example.springapi.core.boundary.output.instance.InstanceStatusUseCaseOutput;
 import com.example.springapi.domain.entity.Instance;
 import com.example.springapi.infrastructure.persistence.InstanceRepositoryImpl;
 import com.example.springapi.services.ZapiHttpService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.Map;
