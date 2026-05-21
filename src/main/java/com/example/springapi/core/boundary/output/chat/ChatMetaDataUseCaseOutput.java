@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Map;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -23,5 +23,6 @@ public class ChatMetaDataUseCaseOutput {
     private String profileThumbnail;
     private String isMuted;
     private String isMarkedSpam;
-    private Map<Object, String> tags;
+    private List<String> tags;
+    private String error;
 }

@@ -4,7 +4,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Map;
+import java.util.List;
 
 @Document(collection = "chats")
 @Getter
@@ -26,5 +26,5 @@ public class ChatDocument {
     private String profileThumbnail;
     private String isMuted;
     private String isMarkedSpam;
-    private Map<Object, String> tags;
+    private List<String> tags;
 }

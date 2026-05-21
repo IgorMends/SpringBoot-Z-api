@@ -3,11 +3,13 @@ package com.example.springapi.infrastructure.persistence.mongo.chat;
 import com.example.springapi.application.mapper.ChatMapper;
 import com.example.springapi.domain.entity.Chat;
 import com.example.springapi.domain.port.ChatRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Repository
 public class ChatRepositoryImpl implements ChatRepository {
 
     private final ChatMongoRepository mongoRepository;

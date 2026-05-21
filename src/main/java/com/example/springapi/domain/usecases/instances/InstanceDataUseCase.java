@@ -75,14 +75,7 @@ public class InstanceDataUseCase {
                     output.getCallRejectAuto(),
                     output.getReceivedCallbackUrl());
 
-            Optional<Instance> instanceDb = instanceRepository.findByInstanceId(instance.getId());
-
-            if (instanceDb.isPresent()) {
-                instanceRepository.save(instance, true);
-            }
-            else {
-                instanceRepository.save(instance, false);
-            }
+            instanceRepository.save(instance, false);
 
             return output;
         } catch (Exception e) {

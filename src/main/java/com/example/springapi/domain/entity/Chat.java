@@ -2,7 +2,7 @@ package com.example.springapi.domain.entity;
 
 import lombok.*;
 
-import java.util.Map;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,5 +21,5 @@ public class Chat {
     private String profileThumbnail;
     private String isMuted;
     private String isMarkedSpam;
-    private Map<Object, String> tags;
+    private List<String> tags;
 }
