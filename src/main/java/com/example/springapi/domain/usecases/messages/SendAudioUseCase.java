@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class SendAudioUseCase {
@@ -39,7 +40,12 @@ public class SendAudioUseCase {
                     .messageId(messageId)
                     .status("sent")
                     .sentAt(new Date())
-                    .metadata(Map.of("instanceId", instanceId, "delayMessage", body.getDelayMessage(), "delayTyping", body.getDelayTyping(), "viewOnce", body.getViewOnce(), "waveform", body.getWaveform()))
+                    .metadata(Map.of(
+                            "instanceId", instanceId,
+                            "delayMessage", Objects.nonNull(body.getDelayMessage()) ? body.getDelayMessage() : -1,
+                            "delayTyping", Objects.nonNull(body.getDelayTyping()) ? body.getDelayTyping() : -1,
+                            "viewOnce", Objects.nonNull(body.getViewOnce()) ? body.getViewOnce() : false,
+                            "waveform", Objects.nonNull(body.getWaveform()) ? body.getWaveform() : false))
                     .build();
 
             messageRepository.save(message);

@@ -6,10 +6,12 @@ import com.example.springapi.domain.entity.Message;
 import com.example.springapi.domain.port.MessageRepository;
 import com.example.springapi.services.ZapiHttpService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class SendImageUseCase {
@@ -39,7 +41,11 @@ public class SendImageUseCase {
                     .messageId(messageId)
                     .status("sent")
                     .sentAt(new Date())
-                    .metadata(Map.of("instanceId", instanceId, "caption", body.getCaption(), "delayMessage", body.getDelayMessage(), "viewOnce", body.getViewOnce()))
+                    .metadata(Map.of(
+                            "instanceId", instanceId,
+                            "caption", StringUtils.hasText(body.getCaption()) ? body.getCaption() : "",
+                            "delayMessage", Objects.nonNull(body.getDelayMessage()) ? body.getDelayMessage() : -1,
+                            "viewOnce", Objects.nonNull(body.getViewOnce()) ? body.getViewOnce() : false))
                     .build();
 
             messageRepository.save(message);

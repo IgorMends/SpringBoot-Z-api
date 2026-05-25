@@ -41,7 +41,11 @@ public class SendTextUseCase {
                     .messageId(messageId)
                     .status("sent")
                     .sentAt(new Date())
-                    .metadata(Map.of("instanceId", instanceId, "delayMessage", Objects.nonNull(body.getDelayMessage()) ? body.getDelayMessage() : -1, "delayTyping", Objects.nonNull(body.getDelayTyping()) ? body.getDelayTyping() : -1, "editMessage", StringUtils.hasText(body.getEditMessage()) ? body.getEditMessage() : ""))
+                    .metadata(Map.of(
+                            "instanceId", instanceId,
+                            "delayMessage", Objects.nonNull(body.getDelayMessage()) ? body.getDelayMessage() : -1,
+                            "delayTyping", Objects.nonNull(body.getDelayTyping()) ? body.getDelayTyping() : -1,
+                            "editMessage", StringUtils.hasText(body.getEditMessage()) ? body.getEditMessage() : ""))
                     .build();
 
             messageRepository.save(message);
