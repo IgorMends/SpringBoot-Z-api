@@ -1,13 +1,11 @@
 package com.example.springapi.presentation.controllers.message;
 
-import com.example.springapi.core.boundary.input.SendAudioUseCaseInput;
-import com.example.springapi.core.boundary.input.SendCallUseCaseInput;
-import com.example.springapi.core.boundary.input.SendImageUseCaseInput;
-import com.example.springapi.core.boundary.input.SendTextUseCaseInput;
+import com.example.springapi.core.boundary.input.*;
 import com.example.springapi.core.boundary.output.message.SendAudioUseCaseOutput;
 import com.example.springapi.core.boundary.output.message.SendCallUseCaseOutput;
 import com.example.springapi.core.boundary.output.message.SendImageUseCaseOutput;
 import com.example.springapi.core.boundary.output.message.SendTextUseCaseOutput;
+import com.example.springapi.domain.interactor.webhook.ReceivedCallBackInteractor;
 import com.example.springapi.domain.usecases.messages.SendAudioUseCase;
 import com.example.springapi.domain.usecases.messages.SendCallUseCase;
 import com.example.springapi.domain.usecases.messages.SendImageUseCase;
@@ -28,6 +26,7 @@ public class MessageController {
     private final SendImageUseCase sendImageUseCase;
     private final SendAudioUseCase sendAudioUseCase;
     private final SendCallUseCase sendCallUseCase;
+    private final ReceivedCallBackInteractor receivedCallBackInteractor;
     private final ObjectMapper objectMapper;
 
     @PostMapping("{instanceId}/token/{instanceToken}/send-text")
@@ -63,9 +62,9 @@ public class MessageController {
     }
 
     @PostMapping("{instanceId}/token/{instanceToken}/receivedCallback")
-    public ResponseEntity<Void> receivedCallback(@RequestBody Map<String, Object> body){
+    public ResponseEntity<Void> receivedCallback(@RequestBody ReceivedCallbackInput body){
 
-        //Usecase para identificar o evento
+        this.receivedCallBackInteractor.execute(body);
 
         return ResponseEntity.ok().build();
     }
