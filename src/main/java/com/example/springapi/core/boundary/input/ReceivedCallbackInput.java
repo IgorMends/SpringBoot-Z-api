@@ -2,6 +2,7 @@ package com.example.springapi.core.boundary.input;
 
 import com.example.springapi.domain.entity.webhook.Image;
 import com.example.springapi.domain.entity.webhook.Text;
+import com.example.springapi.domain.entity.webhook.Video;
 import lombok.*;
 
 import java.util.Optional;
@@ -46,7 +47,7 @@ public class ReceivedCallbackInput {
 
     private Optional<Text> text;
     private Optional<Image> image;
-    private Optional<Object> video;
+    private Optional<Video> video;
     private Optional<Object> audio;
     private Optional<Object> document;
     private Optional<Object> sticker;
